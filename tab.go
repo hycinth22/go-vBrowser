@@ -14,7 +14,8 @@ type Tab struct {
 	browser        *Browser
 	httpClient     *http.Client
 	ajaxHttpClient *http.Client
-	BeforeAjax     func(r *http.Request)
+	BeforeAjax     []func(r *http.Request)
+	AfterAjax      []func(r *http.Response)
 }
 
 // Load a new page in the tab (without referer)

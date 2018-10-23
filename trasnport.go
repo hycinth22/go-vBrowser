@@ -15,13 +15,17 @@ func (t *transport) RoundTrip(req *http.Request) (resp *http.Response, err error
 	return
 }
 
-type ajaxTransport struct{
+type ajaxTransport struct {
 	transport
 }
 
 func (t *ajaxTransport) RoundTrip(req *http.Request) (resp *http.Response, err error) {
-	if t.tab.BeforeAjax != nil {
-		t.tab.BeforeAjax(req)
+	for _, f:= range t.tab.BeforeAjax{
+		f(req)
 	}
-	return t.transport.RoundTrip(req)
+	resp, err = t.transport.RoundTrip(req)
+	for _, f:= range t.tab.AfterAjax{
+		f(resp)
+	}
+	return resp, err
 }
