@@ -2,4 +2,5 @@
 a handy library for http(s) client to perform like a browser. 
 
 ## Document
-[GoDoc](https://www.godoc.org/github.com/inkedawn/go-vBrowser)
+
+[![GoDoc](http://www.godoc.org/github.com/inkedawn/go-vBrowser?status.svg)](http://www.godoc.org/github.com/inkedawn/go-vBrowser)
