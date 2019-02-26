@@ -11,5 +11,5 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-# Go Module Checksum
-go.sum
+# IDE profile
+.idea
