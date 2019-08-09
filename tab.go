@@ -1,7 +1,6 @@
 package vBrowser
 
 import (
-	"errors"
 	"io"
 	"net/http"
 	"net/url"
@@ -34,11 +33,11 @@ func (t *Tab) load(loadUrl string, withReferer bool) error {
 	}
 	location, err := url.Parse(loadUrl)
 	if err != nil {
-		return err
+		return &Error{Op: ParseURL, Err: err}
 	}
 	req, err := http.NewRequest(http.MethodGet, loadUrl, nil)
 	if err != nil {
-		return errors.New("browser:" + err.Error())
+		return &Error{Op: CreateRequest, Err: err}
 	}
 
 	if withReferer {
@@ -47,12 +46,12 @@ func (t *Tab) load(loadUrl string, withReferer bool) error {
 	}
 	resp, err := t.httpClient.Do(req)
 	if err != nil {
-		return errors.New("browser:" + err.Error())
+		return &Error{Op: DoRequest, Err: err}
 	}
 
 	/* doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
-		return errors.New("browser:" + err.Error())
+		return &Error{Op: ParseDocument, Err: err}
 	}*/
 
 	t.Location = location
@@ -65,7 +64,7 @@ func (t *Tab) load(loadUrl string, withReferer bool) error {
 func (t *Tab) Request(method, url string, body io.Reader) (page *http.Response, err error) {
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
-		return nil, errors.New("browser:" + err.Error())
+		return nil, &Error{Op: CreateRequest, Err: err}
 	}
 	return t.DoAjax(req)
 }
