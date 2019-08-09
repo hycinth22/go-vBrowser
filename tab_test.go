@@ -108,13 +108,13 @@ func TestTab_Jump(t *testing.T) {
 
 func TestTab_Request(t *testing.T) {
 	_, err := tab.Request("1", "1", nil)
-	if err.Error() != `1 1: unsupported protocol scheme ""` {
-		t.Log(err.Error())
+	if err == nil || err.Error() != `1 1: unsupported protocol scheme ""` {
+		t.Log(err)
 		t.Fail()
 	}
 	_, err = tab.Request("1", "http://1.1", nil)
-	if err.Error() != `1 http://1.1: dial tcp: lookup 1.1: no such host` {
-		t.Log(err.Error())
+	if err == nil || err.Error() != `1 http://1.1: dial tcp: lookup 1.1: no such host` {
+		t.Log(err)
 		t.Fail()
 	}
 
