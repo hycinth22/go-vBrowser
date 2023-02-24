@@ -1,3 +1,3 @@
 module github.com/inkedawn/go-vBrowser
 
-require golang.org/x/net v0.0.0-20190213061140-3a22650c66bd
+require golang.org/x/net v0.7.0
